@@ -35,7 +35,6 @@ viewButton.addEventListener('click', function(){
         const form = formCreation();
         const image = document.createElement('img');
         const div = document.createElement('div');
-        let c = increment;
         image.src = 'delete.png'; 
         div.appendChild(image);
         div.classList.add('deleteImg');
@@ -43,20 +42,23 @@ viewButton.addEventListener('click', function(){
         div.addEventListener('click', function(){
 
             form.remove();
-            array.splice(c, 1);
-            console.log(array);
-            console.log(c);
-            c--;
+            let i = 0; 
+            while(array[i].name != form.children[0].children[1].value){
+
+                i++;
+
+            }
+            
+            array.splice(i, 1);
             increment--;
-            nameIncement--;
-            authorIncement--;
-            pageIncement--;
+            console.log(array);
 
         });
+
         document.querySelector('.view .secondary-container').appendChild(form);
-        document.getElementById('name'+(increment+1)).value = array[increment].name;
-        document.getElementById('author'+(increment+1)).value = array[increment].author;
-        document.getElementById('page'+(increment+1)).value = array[increment].page;
+        form.children[0].children[1].value = array[increment].name;
+        form.children[1].children[1].value = array[increment].author;
+        form.children[2].children[1].value = array[increment].page;
         increment = increment + 1;
 
     }
@@ -70,14 +72,14 @@ const viewAdd = ()=>{
 
         e.preventDefault();
         form.classList.add('hide');
-        const name = document.getElementById('name0').value;
-        const author = document.getElementById('author0').value;
-        const page = document.getElementById('page0').value;
+        const name = document.getElementById('name').value;
+        const author = document.getElementById('author').value;
+        const page = document.getElementById('page').value;
         array.push({name, author, page});
         
-        document.getElementById('name0').value = '';
-        document.getElementById('author0').value = '';
-        document.getElementById('page0').value = '';
+        document.getElementById('name').value = '';
+        document.getElementById('author').value = '';
+        document.getElementById('page').value = '';
 
     });
 
@@ -92,7 +94,7 @@ const viewAdd = ()=>{
 const formCreation = ()=>{
 
     const form = document.createElement('form');
-    form.classList.add('form'+nameIncement);
+    form.classList.add('form');
     
     for(i = 0; i < 3; i++){
 
@@ -104,26 +106,26 @@ const formCreation = ()=>{
         if(i === 0){
 
             label.innerHTML = 'Book Name:';
-            label.setAttribute('for','name'+nameIncement);
+            label.setAttribute('for','name');
             input.setAttribute('type','text');
             input.setAttribute('required','');
-            input.setAttribute('id','name'+nameIncement++);
+            input.setAttribute('id','name');
 
         }else if(i === 1){
 
             label.innerHTML = 'Author:';
-            label.setAttribute('for','name'+authorIncement);
+            label.setAttribute('for','name');
             input.setAttribute('type','text');
             input.setAttribute('required','');
-            input.setAttribute('id','author'+authorIncement++);
+            input.setAttribute('id','author');
 
         }else{
 
             label.innerHTML = 'Page No.:';
-            label.setAttribute('for','name'+pageIncement);
+            label.setAttribute('for','name');
             input.setAttribute('type','number');
             input.setAttribute('required','');
-            input.setAttribute('id','page'+pageIncement++);
+            input.setAttribute('id','page');
 
         }
 
